@@ -1,4 +1,4 @@
-// DirectorInterface and TeacherInterface
+// DirectorInterface and TeacherInterface remain unchanged
 interface DirectorInterface {
     workFromHome(): string;
     getCoffeeBreak(): string;
@@ -46,14 +46,21 @@ interface DirectorInterface {
     }
   }
   
-// Test cases with detailed logs
-const employee1 = createEmployee(200);
-console.log("Employee 1:", employee1.workFromHome(), employee1.getCoffeeBreak(), employee1 instanceof Teacher);
-
-const employee2 = createEmployee(1000);
-console.log("Employee 2:", employee2.workFromHome(), employee2.getCoffeeBreak(), employee2 instanceof Director);
-
-const employee3 = createEmployee("$500");
-console.log("Employee 3:", employee3.workFromHome(), employee3.getCoffeeBreak(), employee3 instanceof Director);
-
+  // Function to check if the employee is a Director
+  function isDirector(employee: DirectorInterface | TeacherInterface): employee is DirectorInterface {
+    return (employee as DirectorInterface).workDirectorTasks !== undefined;
+  }
+  
+  // Function to execute work depending on the employee type
+  function executeWork(employee: DirectorInterface | TeacherInterface): void {
+    if (isDirector(employee)) {
+      console.log(employee.workDirectorTasks()); // Director task
+    } else {
+      console.log(employee.workTeacherTasks()); // Teacher task
+    }
+  }
+  
+  // Test cases
+  executeWork(createEmployee(200)); // Getting to work
+  executeWork(createEmployee(1000)); // Getting to director tasks
   
