@@ -6,12 +6,12 @@ import pluginJest from "eslint-plugin-jest";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { 
-    files: ["**/*.{js,mjs,cjs,jsx}"],
+    files: ["**/*.{js,mjs,cjs,jsx,tsx}"],
     languageOptions: { 
       globals: {
         ...globals.browser,
-        ...globals.jest,  // Add Jest globals
-      }
+        ...globals.jest,
+      },
     },
   },
   pluginJs.configs.recommended,
