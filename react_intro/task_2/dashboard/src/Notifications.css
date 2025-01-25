@@ -1,19 +1,25 @@
+.notifications {
+    background-color: #f8f9fa;
+    border: 1px dashed #e1003c;
+    margin: 10px;
+    font-size: 1rem;
+    color: #495057;
+  }
 
-/* Notification list */
-.Notifications ul {
+.notifications ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.Notifications li[data-priority="default"] {
+.notifications li[data-priority="default"] {
   color: blue;
 }
 
-.Notifications li[data-priority="urgent"] {
+.notifications li[data-priority="urgent"] {
   color: red;
 }
 
-.Lastet-Notification {
+.Latest-Notification {
   color: red
 }
