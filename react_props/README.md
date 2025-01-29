@@ -70,7 +70,7 @@ By completing this project, you will understand:
 2.Open your browser and navigate to http://localhost:3000 to view the application.
 
 ## Testing
-To run tests, use the following command:
+1. To run tests, use the following command:
 
     ```bash
     npm test
