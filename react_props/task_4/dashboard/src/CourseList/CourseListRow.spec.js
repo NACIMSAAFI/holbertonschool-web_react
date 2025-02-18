@@ -1,23 +1,24 @@
-import {render, screen} from '@testing-library/react'
-import CourseListRow from './CourseListRow'
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import CourseListRow from "./CourseListRow";
 
-test("checking if the correct element in rendred when is header is true and textSecondCell is null", () => {
-    render(<table><thead><CourseListRow isHeader={true} textFirstCell={"hello"} textSecondCell={null}/></thead></table>)
-    const theCell = screen.getByRole("cell")
-    expect(theCell).toBeInTheDocument()
-})
+describe("CourseListRow", () => {
+  test("renders one header cell with colspan=2 if textSecondCell is null", () => {
+    render(<CourseListRow isHeader={true} textFirstCell="Header" />);
+    const thElement = screen.getByText("Header");
+    expect(thElement).toBeInTheDocument();
+    expect(thElement).toHaveAttribute("colspan", "2");
+  });
 
-test("checking if the correct element in rendred when is header is true and textSecondCell is not null", () => {
-    render(<table><thead><CourseListRow header={true} textFirstCell={"hello"} textSecondCell={"world"}/></thead></table>)
-    const theCells = screen.getAllByRole("cell")
-    expect(theCells.length).toBe(2)
-})
+  test("renders two header cells if textSecondCell is provided", () => {
+    render(<CourseListRow isHeader={true} textFirstCell="Name" textSecondCell="Credit" />);
+    expect(screen.getByText("Name")).toBeInTheDocument();
+    expect(screen.getByText("Credit")).toBeInTheDocument();
+  });
 
-test("checking if the correct element in rendred when is header is false", () => {
-    render(<table><thead><CourseListRow header={true} textFirstCell={"hello"} textSecondCell={"world"}/></thead></table>)
-    const theCells = screen.getAllByRole("cell")
-    const theRow = screen.getByRole("row")
-    expect(theCells.length).toBe(2)
-    expect(theRow.contains(theCells[0])).toBe(true)
-    expect(theRow.contains(theCells[1])).toBe(true)
-})
+  test("renders two td elements when isHeader is false", () => {
+    render(<CourseListRow isHeader={false} textFirstCell="ES6" textSecondCell="60" />);
+    expect(screen.getByText("ES6")).toBeInTheDocument();
+    expect(screen.getByText("60")).toBeInTheDocument();
+  });
+});

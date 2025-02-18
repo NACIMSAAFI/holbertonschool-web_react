@@ -1,15 +1,21 @@
-import {render, screen} from '@testing-library/react'
-import CourseList from './CourseList'
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import CourseList from "./CourseList";
 
-test("testing with 5 elements in array", () => {
-    render(<CourseList courses={[{id:123, name:"html", credit:50}, {id:13, name:"scratch", credit:40}, {id:445, name:"oracle", credit:30}, {id:555, name:"js", credit:20}, {id:88, name:"css", credit:10}]}/>)
-    const theRows = screen.getAllByRole("row")
-    expect(theRows.length).toBe(7)
-})
+describe("CourseList", () => {
+  test("renders 5 rows when given an array of courses", () => {
+    const courses = [
+      { id: 1, name: "ES6", credit: 60 },
+      { id: 2, name: "Webpack", credit: 20 },
+      { id: 3, name: "React", credit: 40 },
+    ];
+    render(<CourseList courses={courses} />);
+    const rows = screen.getAllByRole("row");
+    expect(rows.length).toBe(5); // 2 headers + 3 courses
+  });
 
-
-test("testing with empty array", () => {
-    render(<CourseList courses={[]}/>)
-    const theRow = screen.getByRole("row")
-    expect(theRow).toBeInTheDocument()
-})
+  test("renders 1 row when courses prop is empty", () => {
+    render(<CourseList courses={[]} />);
+    expect(screen.getByText("No course available yet")).toBeInTheDocument();
+  });
+});

@@ -1,29 +1,36 @@
+import React from "react";
+import PropTypes from "prop-types";
 import CourseListRow from "./CourseListRow";
-import './CourseList.css'
-import { v4 as uuidv4 } from 'uuid'
-import PropTypes from 'prop-types'
+import "./CourseList.css";
 
-export default function CourseList({courses=[]}) {
-    return (
-        <>
-            <table id="CourseList">
-                <thead>
-                    {courses.length != 0 ? (<><CourseListRow key={uuidv4()} isHeader={true} textFirstCell={"Available courses"}></CourseListRow>
-                    <CourseListRow key={uuidv4()} isHeader={true} textFirstCell={"Course name"} textSecondCell={"Credit"}></CourseListRow></>): null}
-                </thead>
-                <tbody>
-                    {courses.length == 0 ? ((<CourseListRow key={uuidv4()} isHeader={true} textFirstCell={"No course available yet"}></CourseListRow>)) :
-                        (courses.map((obj) => {
-                            return (<CourseListRow key={uuidv4()} isHeader={false} textFirstCell={obj.name} textSecondCell={obj.credit}></CourseListRow>)
-                        }))
-                    }
-                </tbody>
-
-            </table>
-        </>
-    )
-}
+const CourseList = ({ courses = [] }) => {
+  return (
+    <table id="CourseList">
+      <thead>
+        <CourseListRow textFirstCell="Available courses" isHeader={true} />
+        <CourseListRow textFirstCell="Course name" textSecondCell="Credit" isHeader={true} />
+      </thead>
+      <tbody>
+        {courses.length === 0 ? (
+          <CourseListRow textFirstCell="No course available yet" />
+        ) : (
+          courses.map((course) => (
+            <CourseListRow key={course.id} textFirstCell={course.name} textSecondCell={course.credit.toString()} />
+          ))
+        )}
+      </tbody>
+    </table>
+  );
+};
 
 CourseList.propTypes = {
-    courses: PropTypes.array
-}
+  courses: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      credit: PropTypes.number.isRequired,
+    })
+  ),
+};
+
+export default CourseList;
